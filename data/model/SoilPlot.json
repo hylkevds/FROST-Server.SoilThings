@@ -1,0 +1,106 @@
+{
+  "conformance": [],
+  "simplePropertyTypes": [],
+  "entityTypes": [
+    {
+      "name": "SoilPlot",
+      "plural": "SoilPlots",
+      "table": "SOIL_PLOT",
+      "entityProperties": [
+        {
+          "name": "id",
+          "aliases": [
+            "@iot.id"
+          ],
+          "type": "Id",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperId",
+              "field": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "description",
+          "type": "Edm.String",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
+              "field": "DESCRIPTION"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "name",
+          "type": "Edm.String",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperString",
+              "field": "NAME"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "properties",
+          "type": "Object",
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperJson",
+              "field": "PROPERTIES",
+              "isMap": true
+            }
+          ],
+          "annotations": []
+        }
+      ],
+      "navigationProperties": [
+        {
+          "name": "Location",
+          "entitySet": false,
+          "entityType": "Location",
+          "required": true,
+          "inverse": {
+            "name": "SoilPlots",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "LOCATION_ID",
+              "otherTable": "LOCATIONS",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "LocatedOn",
+          "entitySet": false,
+          "entityType": "SoilSite",
+          "required": true,
+          "inverse": {
+            "name": "IsObservedOnLocation",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "LOCATED_ON",
+              "otherTable": "SOIL_SITE",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    }
+  ]
+}

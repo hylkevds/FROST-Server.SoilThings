@@ -1,0 +1,141 @@
+{
+  "conformance": [],
+  "simplePropertyTypes": [],
+  "entityTypes": [
+    {
+      "name": "Datastream",
+      "plural": "Datastreams",
+      "table": "DATASTREAMS",
+      "entityProperties": [],
+      "navigationProperties": [
+        {
+          "name": "SoilBody",
+          "entitySet": false,
+          "entityType": "SoilBody",
+          "required": true,
+          "inverse": {
+            "name": "Datastreams",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "SOIL_BODY_ID",
+              "otherTable": "SOIL_BODY",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "SoilHorizon",
+          "entitySet": false,
+          "entityType": "SoilHorizon",
+          "required": true,
+          "inverse": {
+            "name": "Datastreams",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "SOIL_HORIZON_ID",
+              "otherTable": "SOIL_HORIZON",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "SoilLayer",
+          "entitySet": false,
+          "entityType": "SoilLayer",
+          "required": true,
+          "inverse": {
+            "name": "Datastreams",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "SOIL_LAYER_ID",
+              "otherTable": "SOIL_LAYER",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "SoilPlot",
+          "entitySet": false,
+          "entityType": "SoilPlot",
+          "required": true,
+          "inverse": {
+            "name": "Datastreams",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "SOIL_PLOT_ID",
+              "otherTable": "SOIL_PLOT",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "SoilProfile",
+          "entitySet": false,
+          "entityType": "SoilProfile",
+          "required": true,
+          "inverse": {
+            "name": "Datastreams",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "SOIL_PROFILE_ID",
+              "otherTable": "SOIL_PROFILE",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        },
+        {
+          "name": "SoilSite",
+          "entitySet": false,
+          "entityType": "SoilSite",
+          "required": true,
+          "inverse": {
+            "name": "Datastreams",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "SOIL_SITE_ID",
+              "otherTable": "SOIL_SITE",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="scf" id="2022-04-20-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="SOIL_SITE">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_SITE_THINGS_PKEY"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="LOCATION_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="SOIL_PLOT">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_PLOT_THINGS_PKEY"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="LOCATED_ON" type="BIGINT"/>
+            <column name="LOCATION_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="SOIL_PROFILE">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_PROFILE_THINGS_PKEY"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="PLOT_LOCATION" type="BIGINT"/>
+            <column name="LOCATION_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="SOIL_HORIZON">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_HORIZON_THINGS_PKEY"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="IS_PART_OF" type="BIGINT"/>
+            <column name="LOCATION_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="SOIL_LAYER">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_LAYER_THINGS_PKEY"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="IS_PART_OF" type="BIGINT"/>
+            <column name="LOCATION_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="SOIL_BODY">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_BODY_THINGS_PKEY"/>
+            </column>
+            <column name="DESCRIPTION" type="TEXT"/>
+            <column name="PROPERTIES" type="JSONB"/>
+            <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="IS_DESCRIBED_BY" type="BIGINT"/>
+            <column name="LOCATION_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <dropForeignKeyConstraint baseTableName="DATASTREAMS" constraintName="DATASTREAMS_THING_ID_FKEY" />
+        <dropForeignKeyConstraint baseTableName="HIST_LOCATIONS" constraintName="HIST_LOCATIONS_THING_ID_FKEY" />
+        <dropForeignKeyConstraint baseTableName="THINGS_LOCATIONS" constraintName="THINGS_LOCATIONS_THING_ID_FKEY" />
+        <dropTable tableName="THINGS" />
+        <createView replaceIfExists="true" viewName="THINGS">
+            SELECT "ID", "DESCRIPTION", "PROPERTIES", "NAME"
+            FROM "SOIL_SITE"
+            UNION
+            SELECT "ID", "DESCRIPTION", "PROPERTIES", "NAME"
+            FROM "SOIL_PLOT"
+            UNION
+            SELECT "ID", "DESCRIPTION", "PROPERTIES", "NAME"
+            FROM "SOIL_PROFILE"
+            UNION
+            SELECT "ID", "DESCRIPTION", "PROPERTIES", "NAME"
+            FROM "SOIL_HORIZON"
+            UNION
+            SELECT "ID", "DESCRIPTION", "PROPERTIES", "NAME"
+            FROM "SOIL_LAYER"
+            UNION
+            SELECT "ID", "DESCRIPTION", "PROPERTIES", "NAME"
+            FROM "SOIL_BODY";
+        </createView>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <dropForeignKeyConstraint baseTableName="THINGS_LOCATIONS" constraintName="THINGS_LOCATIONS_LOCATION_ID_FKEY" />
+        <dropTable tableName="THINGS_LOCATIONS" />
+        <createView replaceIfExists="true" viewName="THINGS_LOCATIONS">
+            SELECT "ID" as "THING_ID", "LOCATION_ID"
+            FROM "SOIL_SITE"
+            UNION
+            SELECT "ID" as "THING_ID", "LOCATION_ID"
+            FROM "SOIL_PLOT"
+            UNION
+            SELECT "ID" as "THING_ID", "LOCATION_ID"
+            FROM "SOIL_PROFILE"
+            UNION
+            SELECT "ID" as "THING_ID", "LOCATION_ID"
+            FROM "SOIL_HORIZON"
+            UNION
+            SELECT "ID" as "THING_ID", "LOCATION_ID"
+            FROM "SOIL_LAYER"
+            UNION
+            SELECT "ID" as "THING_ID", "LOCATION_ID"
+            FROM "SOIL_BODY";
+        </createView>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="DATASTREAMS">
+            <column name="SOIL_BODY_ID" type="BIGINT"/>
+            <column name="SOIL_HORIZON_ID" type="BIGINT"/>
+            <column name="SOIL_LAYER_ID" type="BIGINT"/>
+            <column name="SOIL_PLOT_ID" type="BIGINT"/>
+            <column name="SOIL_PROFILE_ID" type="BIGINT"/>
+            <column name="SOIL_SITE_ID" type="BIGINT"/>
+        </addColumn>
+        <dropColumn tableName="DATASTREAMS" columnName="THING_ID" />
+        <sql>alter table "DATASTREAMS" add column "THING_ID" bigint generated always as (coalesce("SOIL_BODY_ID","SOIL_HORIZON_ID","SOIL_LAYER_ID","SOIL_PLOT_ID","SOIL_PROFILE_ID","SOIL_SITE_ID")) stored</sql>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createSequence
+            sequenceName="SOIL_THINGS_ID_seq"
+            cycle="false"
+            incrementBy="1"
+            maxValue="9223372036854775807"
+            minValue="1"
+            startValue="1"/>
+    </changeSet>
+
+    <changeSet author="scf" id="2022-04-20-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addForeignKeyConstraint
+            baseTableName="SOIL_BODY" baseColumnNames="IS_DESCRIBED_BY"
+            constraintName="SOIL_BODY_PROFILE_FKEY"
+            onDelete="CASCADE" onUpdate="CASCADE"
+            referencedTableName="SOIL_PROFILE" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_HORIZON" baseColumnNames="IS_PART_OF"
+            constraintName="SOIL_HORIZON_PROFILE_FKEY"
+            onDelete="CASCADE" onUpdate="CASCADE"
+            referencedTableName="SOIL_PROFILE" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_LAYER" baseColumnNames="IS_PART_OF"
+            constraintName="SOIL_LAYER_PROFILE_FKEY"
+            onDelete="CASCADE" onUpdate="CASCADE"
+            referencedTableName="SOIL_PROFILE" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_PLOT" baseColumnNames="LOCATED_ON"
+            constraintName="SOIL_PLOT_SITE_FKEY"
+            onDelete="CASCADE" onUpdate="CASCADE"
+            referencedTableName="SOIL_SITE" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_PROFILE" baseColumnNames="PLOT_LOCATION"
+            constraintName="SOIL_PROFILE_PLOT_FKEY"
+            onDelete="CASCADE" onUpdate="CASCADE"
+            referencedTableName="SOIL_PLOT" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint
+            baseTableName="SOIL_BODY" baseColumnNames="LOCATION_ID"
+            constraintName="SOIL_BODY_LOCATION_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="LOCATIONS" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_HORIZON" baseColumnNames="LOCATION_ID"
+            constraintName="SOIL_HORIZON_LOCATION_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="LOCATIONS" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_LAYER" baseColumnNames="LOCATION_ID"
+            constraintName="SOIL_LAYER_LOCATION_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="LOCATIONS" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_PLOT" baseColumnNames="LOCATION_ID"
+            constraintName="SOIL_PLOT_LOCATION_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="LOCATIONS" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_PROFILE" baseColumnNames="LOCATION_ID"
+            constraintName="SOIL_PROFILE_LOCATION_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="LOCATIONS" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="SOIL_SITE" baseColumnNames="LOCATION_ID"
+            constraintName="SOIL_SITE_LOCATION_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="LOCATIONS" referencedColumnNames="ID" />
+
+        <addForeignKeyConstraint
+            baseTableName="DATASTREAMS" baseColumnNames="SOIL_BODY_ID"
+            constraintName="DATASTREAMS_SOIL_BODY_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="SOIL_BODY" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="DATASTREAMS" baseColumnNames="SOIL_HORIZON_ID"
+            constraintName="DATASTREAMS_SOIL_HORIZON_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="SOIL_HORIZON" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="DATASTREAMS" baseColumnNames="SOIL_LAYER_ID"
+            constraintName="DATASTREAMS_SOIL_LAYER_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="SOIL_LAYER" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="DATASTREAMS" baseColumnNames="SOIL_PLOT_ID"
+            constraintName="DATASTREAMS_SOIL_PLOT_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="SOIL_PLOT" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="DATASTREAMS" baseColumnNames="SOIL_PROFILE_ID"
+            constraintName="DATASTREAMS_SOIL_PROFILE_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="SOIL_PROFILE" referencedColumnNames="ID" />
+        <addForeignKeyConstraint
+            baseTableName="DATASTREAMS" baseColumnNames="SOIL_SITE_ID"
+            constraintName="DATASTREAMS_SOIL_SITE_ID_FKEY"
+            onDelete="SET NULL" onUpdate="CASCADE"
+            referencedTableName="SOIL_SITE" referencedColumnNames="ID" />
+    </changeSet>
+</databaseChangeLog>
