@@ -61,7 +61,7 @@
           "name": "Location",
           "entitySet": false,
           "entityType": "Location",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "SoilSites",
             "entitySet": true,
@@ -83,3 +83,4 @@
     }
   ]
 }
+

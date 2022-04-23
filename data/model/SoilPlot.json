@@ -61,7 +61,7 @@
           "name": "Location",
           "entitySet": false,
           "entityType": "Location",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "SoilPlots",
             "entitySet": true,
@@ -82,7 +82,7 @@
           "name": "LocatedOn",
           "entitySet": false,
           "entityType": "SoilSite",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "IsObservedOnLocation",
             "entitySet": true,
@@ -104,3 +104,4 @@
     }
   ]
 }
+

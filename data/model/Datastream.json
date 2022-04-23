@@ -9,31 +9,20 @@
       "entityProperties": [],
       "navigationProperties": [
         {
-          "name": "SoilBody",
+          "name": "Thing",
           "entitySet": false,
-          "entityType": "SoilBody",
-          "required": true,
+          "entityType": "Thing",
+          "required": false,
           "inverse": {
-            "name": "Datastreams",
-            "entitySet": true,
-            "required": false,
-            "annotations": []
+            "name" : "Datastreams"
           },
-          "handlers": [
-            {
-              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
-              "field": "SOIL_BODY_ID",
-              "otherTable": "SOIL_BODY",
-              "otherField": "ID"
-            }
-          ],
           "annotations": []
         },
         {
           "name": "SoilHorizon",
           "entitySet": false,
           "entityType": "SoilHorizon",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "Datastreams",
             "entitySet": true,
@@ -54,7 +43,7 @@
           "name": "SoilLayer",
           "entitySet": false,
           "entityType": "SoilLayer",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "Datastreams",
             "entitySet": true,
@@ -75,7 +64,7 @@
           "name": "SoilPlot",
           "entitySet": false,
           "entityType": "SoilPlot",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "Datastreams",
             "entitySet": true,
@@ -96,7 +85,7 @@
           "name": "SoilProfile",
           "entitySet": false,
           "entityType": "SoilProfile",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "Datastreams",
             "entitySet": true,
@@ -117,7 +106,7 @@
           "name": "SoilSite",
           "entitySet": false,
           "entityType": "SoilSite",
-          "required": true,
+          "required": false,
           "inverse": {
             "name": "Datastreams",
             "entitySet": true,
@@ -139,3 +128,4 @@
     }
   ]
 }
+
