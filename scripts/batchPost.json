@@ -1,0 +1,132 @@
+{
+    "POST to": "/v1.1/$batch",
+    "Headers": "Content-Type: application/json",
+    "requests": [
+        {
+            "id": "ObsProp1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "ObservedProperties",
+            "body": {
+                "name": "Temperature",
+                "description": "Temperature",
+                "definition": "Some Ur"
+            }
+        },
+        {
+            "id": "Sensor1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "Sensors",
+            "body": {
+                "name": "Sensor 1",
+                "description": "The first test sensor",
+                "encodingType": "text",
+                "metadata": "no meta data known"
+            }
+        },
+        {
+            "id": "Location1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "Locations",
+            "body": {
+                "name": "Location 1",
+                "description": "Location of first test",
+                "encodingType": "application/geo+json",
+                "location": {"type": "Point", "coordinates": [ 8.946389, 44.572778 ]}
+            }
+        },
+        {
+            "id": "SoilSite1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "SoilSites",
+            "body": {
+                "name": "First Soil Site",
+                "Location": {"@iot.id":"$Location1"}
+            }
+        },
+        {
+            "id": "SoilPlot1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "SoilPlots",
+            "body": {
+                "name": "First Soil Plot",
+                "Location": {"@iot.id":"$Location1"},
+                "LocatedOn": {"@iot.id":"$SoilSite1"}
+            }
+        },
+        {
+            "id": "SoilProfile1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "SoilProfiles",
+            "body": {
+                "name": "First Soil Profile",
+                "Location": {"@iot.id":"$Location1"},
+                "PlotLocation": {"@iot.id":"$SoilPlot1"}
+            }
+        },
+        {
+            "id": "SoilBody1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "SoilBodies",
+            "body": {
+                "name": "First Soil Body",
+                "Location": {"@iot.id":"$Location1"},
+                "isDescribedBy": {"@iot.id":"$SoilProfile1"}
+            }
+        },
+        {
+            "id": "SoilLayer1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "SoilLayers",
+            "body": {
+                "name": "First Soil Layer",
+                "Location": {"@iot.id":"$Location1"},
+                "isPartOf": {"@iot.id":"$SoilProfile1"}
+            }
+        },
+        {
+            "id": "SoilHorizon1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "SoilHorizons",
+            "body": {
+                "name": "First Soil Horizon",
+                "Location": {"@iot.id":"$Location1"},
+                "isPartOf": {"@iot.id":"$SoilProfile1"}
+            }
+        },
+        {
+            "id": "Datastream1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "Datastreams",
+            "body": {
+                "name": "Temperature SoilSite1",
+                "description": "The Temperature at SoilSite1",
+                "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+                "unitOfMeasurement": {    "name": "degree Celcius",    "symbol": "°C",    "definition": "DegC"},
+                "SoilSite":{"@iot.id":"$SoilSite1"},
+                "Sensor":{"@iot.id":"$Sensor1"},
+                "ObservedProperty":{"@iot.id":"$ObsProp1"}
+            }
+        },
+        {
+            "id": "Observation1",
+            "atomicityGroup": "group1",
+            "method": "post",
+            "url": "Observations",
+            "body": {
+                "result": 1,
+                "Datastream":{"@iot.id":"$Datastream1"}
+            }
+        }
+    ]
+}
+
