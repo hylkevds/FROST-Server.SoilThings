@@ -5,8 +5,18 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet author="scf" id="2022-04-20-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createSequence
+            sequenceName="soil_things_id_seq"
+            cycle="false"
+            incrementBy="1"
+            maxValue="9223372036854775807"
+            minValue="1"
+            startValue="1"/>
+    </changeSet>
+        
+    <changeSet author="scf" id="2022-04-20-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="SOIL_SITE">
-            <column name="ID" type="BIGINT" autoIncrement="true">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('soil_things_id_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_SITE_THINGS_PKEY"/>
             </column>
             <column name="DESCRIPTION" type="TEXT"/>
@@ -16,9 +26,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="SOIL_PLOT">
-            <column name="ID" type="BIGINT" autoIncrement="true">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('soil_things_id_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_PLOT_THINGS_PKEY"/>
             </column>
             <column name="DESCRIPTION" type="TEXT"/>
@@ -29,9 +39,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="SOIL_PROFILE">
-            <column name="ID" type="BIGINT" autoIncrement="true">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('soil_things_id_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_PROFILE_THINGS_PKEY"/>
             </column>
             <column name="DESCRIPTION" type="TEXT"/>
@@ -42,9 +52,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="SOIL_HORIZON">
-            <column name="ID" type="BIGINT" autoIncrement="true">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('soil_things_id_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_HORIZON_THINGS_PKEY"/>
             </column>
             <column name="DESCRIPTION" type="TEXT"/>
@@ -55,9 +65,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="SOIL_LAYER">
-            <column name="ID" type="BIGINT" autoIncrement="true">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('soil_things_id_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_LAYER_THINGS_PKEY"/>
             </column>
             <column name="DESCRIPTION" type="TEXT"/>
@@ -68,9 +78,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="SOIL_BODY">
-            <column name="ID" type="BIGINT" autoIncrement="true">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('soil_things_id_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="SOIL_BODY_THINGS_PKEY"/>
             </column>
             <column name="DESCRIPTION" type="TEXT"/>
@@ -81,7 +91,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <dropForeignKeyConstraint baseTableName="DATASTREAMS" constraintName="DATASTREAMS_THING_ID_FKEY" />
         <dropForeignKeyConstraint baseTableName="HIST_LOCATIONS" constraintName="HIST_LOCATIONS_THING_ID_FKEY" />
         <dropForeignKeyConstraint baseTableName="THINGS_LOCATIONS" constraintName="THINGS_LOCATIONS_THING_ID_FKEY" />
@@ -107,7 +117,7 @@
         </createView>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <dropForeignKeyConstraint baseTableName="THINGS_LOCATIONS" constraintName="THINGS_LOCATIONS_LOCATION_ID_FKEY" />
         <dropTable tableName="THINGS_LOCATIONS" />
         <createView replaceIfExists="true" viewName="THINGS_LOCATIONS">
@@ -131,7 +141,7 @@
         </createView>
     </changeSet>
 
-    <changeSet author="scf" id="2022-04-20-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="scf" id="2022-04-20-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addColumn tableName="DATASTREAMS">
             <column name="SOIL_BODY_ID" type="BIGINT"/>
             <column name="SOIL_HORIZON_ID" type="BIGINT"/>
@@ -142,16 +152,6 @@
         </addColumn>
         <dropColumn tableName="DATASTREAMS" columnName="THING_ID" />
         <sql>alter table "DATASTREAMS" add column "THING_ID" bigint generated always as (coalesce("SOIL_BODY_ID","SOIL_HORIZON_ID","SOIL_LAYER_ID","SOIL_PLOT_ID","SOIL_PROFILE_ID","SOIL_SITE_ID")) stored</sql>
-    </changeSet>
-
-    <changeSet author="scf" id="2022-04-20-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createSequence
-            sequenceName="SOIL_THINGS_ID_seq"
-            cycle="false"
-            incrementBy="1"
-            maxValue="9223372036854775807"
-            minValue="1"
-            startValue="1"/>
     </changeSet>
 
     <changeSet author="scf" id="2022-04-20-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
