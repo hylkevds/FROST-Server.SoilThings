@@ -79,12 +79,12 @@
           "annotations": []
         },
         {
-          "name": "isPartOf",
+          "name": "IsPartOf",
           "entitySet": false,
           "entityType": "SoilProfile",
           "required": false,
           "inverse": {
-            "name": "isDescribedByLayer",
+            "name": "IsDescribedByLayer",
             "entitySet": true,
             "required": false,
             "annotations": []

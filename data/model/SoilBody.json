@@ -79,12 +79,12 @@
           "annotations": []
         },
         {
-          "name": "isDescribedBy",
+          "name": "IsDescribedBy",
           "entitySet": false,
           "entityType": "SoilProfile",
           "required": false,
           "inverse": {
-            "name": "hasSoilBodies",
+            "name": "HasSoilBodies",
             "entitySet": true,
             "required": false,
             "annotations": []
