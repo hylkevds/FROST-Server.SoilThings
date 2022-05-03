@@ -47,6 +47,7 @@
             <column name="DESCRIPTION" type="TEXT"/>
             <column name="PROPERTIES" type="JSONB"/>
             <column name="NAME" type="TEXT" defaultValue="no name"/>
+            <column name="BODY_ID" type="BIGINT"/>
             <column name="PLOT_LOCATION" type="BIGINT"/>
             <column name="LOCATION_ID" type="BIGINT"/>
         </createTable>
@@ -86,7 +87,6 @@
             <column name="DESCRIPTION" type="TEXT"/>
             <column name="PROPERTIES" type="JSONB"/>
             <column name="NAME" type="TEXT" defaultValue="no name"/>
-            <column name="IS_DESCRIBED_BY" type="BIGINT"/>
             <column name="LOCATION_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
@@ -156,10 +156,10 @@
 
     <changeSet author="scf" id="2022-04-20-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addForeignKeyConstraint
-            baseTableName="SOIL_BODY" baseColumnNames="IS_DESCRIBED_BY"
-            constraintName="SOIL_BODY_PROFILE_FKEY"
+            baseTableName="SOIL_PROFILE" baseColumnNames="BODY_ID"
+            constraintName="SOIL_PROFILE_BODY_FKEY"
             onDelete="CASCADE" onUpdate="CASCADE"
-            referencedTableName="SOIL_PROFILE" referencedColumnNames="ID" />
+            referencedTableName="SOIL_BODY" referencedColumnNames="ID" />
         <addForeignKeyConstraint
             baseTableName="SOIL_HORIZON" baseColumnNames="IS_PART_OF"
             constraintName="SOIL_HORIZON_PROFILE_FKEY"

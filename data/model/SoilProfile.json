@@ -98,6 +98,27 @@
             }
           ],
           "annotations": []
+        },
+        {
+          "name": "HasSoilBody",
+          "entitySet": false,
+          "entityType": "SoilBody",
+          "required": false,
+          "inverse": {
+            "name": "IsDescribedBy",
+            "entitySet": true,
+            "required": false,
+            "annotations": []
+          },
+          "handlers": [
+            {
+              "@class": "de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.utils.fieldmapper.FieldMapperOneToMany",
+              "field": "BODY_ID",
+              "otherTable": "SOIL_BODY",
+              "otherField": "ID"
+            }
+          ],
+          "annotations": []
         }
       ],
       "annotations": []

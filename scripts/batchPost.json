@@ -77,7 +77,7 @@
             "body": {
                 "name": "First Soil Body",
                 "Location": {"@iot.id":"$Location1"},
-                "IsDescribedBy": {"@iot.id":"$SoilProfile1"}
+                "IsDescribedBy": [{"@iot.id":"$SoilProfile1"}]
             }
         },
         {
