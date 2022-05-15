@@ -1,6 +1,7 @@
 {
-  "conformance": [],
-  "simplePropertyTypes": [],
+  "conformance": [
+    "https://github.com/hylkevds/FROST-Server.SoilThings"
+  ],
   "entityTypes": [
     {
       "name": "SoilSite",
