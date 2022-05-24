@@ -1,4 +1,4 @@
-From fraunhoferiosb/frost-server-http:2.0.0
+From fraunhoferiosb/frost-server-http:2.0.1
 
 COPY data ${CATALINA_HOME}/webapps/FROST-Server/WEB-INF/data
 
