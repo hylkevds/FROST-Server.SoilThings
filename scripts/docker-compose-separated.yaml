@@ -23,6 +23,7 @@ services:
       - persistence_db_username=sensorthings
       - persistence_db_password=ChangeMe
       - persistence_autoUpdateDatabase=true
+      - plugins_openApi_enable=true
 
   mosquitto:
     image: eclipse-mosquitto
